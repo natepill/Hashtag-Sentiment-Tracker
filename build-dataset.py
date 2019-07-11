@@ -13,16 +13,15 @@ import pandas
 
 '''
 Open a persistent connection to the Twitter API.
-Process each tweet that we receive.
-Store the processed tweets.
+Preprocess each tweet that we receive.
+Store the processed tweets into csv file
 
-We’ll need to use a programming paradigm called event-driven programming
 '''
 
 
 
-# NOTE: CHANGE THE TERMS IN THE ARRAY TO WHAT TERMS OF TWEETS YOU WANT TO SCRAPE
-TRACK_TERMS = ["trump", "clinton", "hillary clinton", "donald trump"]
+# TODO: Refactor to stream tweets based on user input from search bar
+TRACK_TERMS = ["Trump"]
 
 
 
@@ -59,9 +58,6 @@ class StreamListener(tweepy.StreamListener):
         #TODO: We could preprocess the tweets here by feeding each tweet as we stream them through our ML model
         # and then we can store the sentiment score along with these other features
 
-        # Going to replace w/ Text Vectorization
-        # Have to feed each tweet through ML model, then store that
-
 
         if coords is not None:
             coords = json.dumps(coords)
@@ -83,6 +79,7 @@ class StreamListener(tweepy.StreamListener):
         #     When the tweet was sent (status.created_at).
         #     How many times the tweet has been retweeted (status.retweet_count).
         #     The tweet's coordinates (status.coordinates). The geographic coordinates from where the tweet was sent.
+
 
 
         # Storing tweets into an SQLlite db so they can be easily queried, or dumped out to csv for further analysis.
