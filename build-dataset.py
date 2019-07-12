@@ -35,7 +35,12 @@ table = db["tweets"]
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
-
+    def __init__(self, time_limit=60):
+        self.start_time = time.time()
+        self.limit = time_limit
+        self.saveFile = open('<HASHTAG>_<TIMESTAMP>.CSV', 'a')
+        super(MyStreamListener, self).__init__()
+        
     def on_status(self, status):
 
         # If tweet is a retweet, then don’t process the tweet.
@@ -79,7 +84,6 @@ class StreamListener(tweepy.StreamListener):
         #     When the tweet was sent (status.created_at).
         #     How many times the tweet has been retweeted (status.retweet_count).
         #     The tweet's coordinates (status.coordinates). The geographic coordinates from where the tweet was sent.
-
 
 
         # Storing tweets into an SQLlite db so they can be easily queried, or dumped out to csv for further analysis.
