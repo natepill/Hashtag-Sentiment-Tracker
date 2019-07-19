@@ -34,21 +34,20 @@ table = db["tweets"]
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
-    def __init__(self, time_limit=60, filename):
-        self.filename = filename
+    def __init__(self, time_limit=60, hashtag):
         self.start_time = time.time()
+        self.filename = '{}_{}.csv'.format(hashtag, time.time())
         self.limit = time_limit
-        self.saveFile = open('<HASHTAG>_<TIMESTAMP>.CSV', 'a')
+
         self.init_csv()
         super(MyStreamListener, self).__init__()
 
     def init_csv(self):
-        with open("collected_tweets/{}".format(self.filename), 'w') as tweets_csv:
-
-            csv_writer = csv.writer(tweets_csv, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-            csv_writer.writerow(['John Smith', 'Accounting', 'November'])
-            csv_writer.writerow(['Erica Meyers', 'IT', 'March'])
+        ''' Initialize CSV file with headers '''
+        with open("collected_tweets/{}".format(self.filename), 'w') as csv_file:
+            fieldnames = ['emp_name', 'dept', 'birth_month']
+            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+            writer.writeheader()
 
 
     def on_status(self, status):
