@@ -36,7 +36,7 @@ class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
     def __init__(self, time_limit=60, hashtag):
         self.start_time = time.time()
-        self.filename = '{}_{}.csv'.format(hashtag, time.time())
+        self.filename = '{}_{}.csv'.format(hashtag, self.start_time)
         self.limit = time_limit
 
         self.init_csv()
@@ -55,18 +55,21 @@ class StreamListener(tweepy.StreamListener):
         # If tweet is a retweet, then don’t process the tweet.
         if hasattr(status, 'retweeted_status'):
             return
-        print(status.text)
 
-        description = status.user.description
-        loc = status.user.location
+        # NOTE: There are a lot of cool attributes of the status object to utilize in a DS project
+        # maybe I come back later and store those values in a csv and do more analysis
+            
+        print(status.text)
         text = status.text
-        coords = status.coordinates
-        name = status.user.screen_name
-        user_created = status.user.created_at
-        followers = status.user.followers_count
-        id_str = status.id_str
-        created = status.created_at
-        retweets = status.retweet_count
+        # description = status.user.description
+        # loc = status.user.location
+        # coords = status.coordinates
+        # name = status.user.screen_name
+        # user_created = status.user.created_at
+        # followers = status.user.followers_count
+        # id_str = status.id_str
+        # created = status.created_at
+        # retweets = status.retweet_count
 
 
         #TODO: We could preprocess the tweets here by feeding each tweet as we stream them through our ML model
