@@ -15,7 +15,6 @@ import pandas
 Open a persistent connection to the Twitter API.
 Preprocess each tweet that we receive.
 Store the processed tweets into csv file
-
 '''
 
 
@@ -35,12 +34,23 @@ table = db["tweets"]
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
-    def __init__(self, time_limit=60):
+    def __init__(self, time_limit=60, filename):
+        self.filename = filename
         self.start_time = time.time()
         self.limit = time_limit
         self.saveFile = open('<HASHTAG>_<TIMESTAMP>.CSV', 'a')
+        self.init_csv()
         super(MyStreamListener, self).__init__()
-        
+
+    def init_csv(self):
+        with open("collected_tweets/{}".format(self.filename), 'w') as tweets_csv:
+
+            csv_writer = csv.writer(tweets_csv, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+            csv_writer.writerow(['John Smith', 'Accounting', 'November'])
+            csv_writer.writerow(['Erica Meyers', 'IT', 'March'])
+
+
     def on_status(self, status):
 
         # If tweet is a retweet, then don’t process the tweet.
@@ -84,6 +94,11 @@ class StreamListener(tweepy.StreamListener):
         #     When the tweet was sent (status.created_at).
         #     How many times the tweet has been retweeted (status.retweet_count).
         #     The tweet's coordinates (status.coordinates). The geographic coordinates from where the tweet was sent.
+
+
+        # NOTE: important to use APPEND mode and NOT write mode so that we dont overrite existing tweets
+        with open("collected_tweets/{}".format(self.filename), 'a'):
+
 
 
         # Storing tweets into an SQLlite db so they can be easily queried, or dumped out to csv for further analysis.
