@@ -44,8 +44,9 @@ class StreamListener(tweepy.StreamListener):
 
     def init_csv(self):
         ''' Initialize CSV file with headers '''
+
         with open("collected_tweets/{}".format(self.filename), 'w') as csv_file:
-            fieldnames = ['emp_name', 'dept', 'birth_month']
+            fieldnames = ['tweet_context']
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writeheader()
 
@@ -58,9 +59,10 @@ class StreamListener(tweepy.StreamListener):
 
         # NOTE: There are a lot of cool attributes of the status object to utilize in a DS project
         # maybe I come back later and store those values in a csv and do more analysis
-            
+
         print(status.text)
         text = status.text
+
         # description = status.user.description
         # loc = status.user.location
         # coords = status.coordinates
@@ -99,24 +101,13 @@ class StreamListener(tweepy.StreamListener):
 
 
         # NOTE: important to use APPEND mode and NOT write mode so that we dont overrite existing tweets
-        with open("collected_tweets/{}".format(self.filename), 'a'):
+        with open("collected_tweets/{}".format(self.filename), 'a') as csv_file:
+            
+            csv_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            csv_writer.writerow([text])
 
 
 
-        # Storing tweets into an SQLlite db so they can be easily queried, or dumped out to csv for further analysis.
-        table.insert(dict(
-            user_description=description,
-            user_location=loc,
-            coordinates=coords,
-            text=text,
-            user_name=name,
-            user_created=user_created,
-            user_followers=followers,
-            id_str=id_str,
-            created=created,
-            retweet_count=retweets,
-            user_bg_color=bg_color
-        ))
     # Override the on_error method of StreamListener so that we can handle errors coming from the Twitter API properly
     # The Twitter API will send a 420 status code if we're being rate limited. If this happens --> disconnect, any other error, keep going
     def on_error(self, status_code):
