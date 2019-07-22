@@ -1,14 +1,9 @@
-from textblob import TextBlob
-from sqlalchemy.exc import ProgrammingError
+ # NOTE: Do I need these imports if they are being imported from the main app file?
 import requests
+import time
 import tweepy
 import env #Custom env file for tweepy keys
-import dataset
-import json
 import csv
-import os
-import pymysql
-import pandas
 
 
 '''
@@ -17,30 +12,23 @@ Preprocess each tweet that we receive.
 Store the processed tweets into csv file
 '''
 
-
-
-# TODO: Refactor to stream tweets based on user input from search bar
-TRACK_TERMS = ["Trump"]
-
-
-
-db = dataset.connect("sqlite:///tweets.db")
-table = db["tweets"]
-
-
+# Initialize sqlite database
+# db = dataset.connect("sqlite:///tweets.db")
+# table = db["tweets"]
 
 # Twitter sent, and call an appropriate method to deal with the specific data type. It's possible to deal with events like users sending direct messages, tweets being deleted, and more. For now, we only care about when users post tweets. Thus, we'll need to override the on_status method:
 
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
-    def __init__(self, time_limit=60, hashtag):
+
+    def __init__(self, time_limit=5, hashtag):
         self.start_time = time.time()
         self.filename = '{}_{}.csv'.format(hashtag, self.start_time)
         self.limit = time_limit
 
         self.init_csv()
-        super(MyStreamListener, self).__init__()
+        super(StreamListener, self).__init__()
 
     def init_csv(self):
         ''' Initialize CSV file with headers '''
@@ -52,6 +40,10 @@ class StreamListener(tweepy.StreamListener):
 
 
     def on_status(self, status):
+
+        # Stop Twitter stream after initialized time limit
+        if (time.time() - self.start_time) > self.limit:
+            return False
 
         # If tweet is a retweet, then don’t process the tweet.
         if hasattr(status, 'retweeted_status'):
@@ -86,27 +78,12 @@ class StreamListener(tweepy.StreamListener):
             # withheld_in_countries — the tweet has been withheld in certain countries.
             # favorite_count — the number of times the tweet has been favorited by other users.
 
-        # From Docs
-        # The user's description (status.user.description). This is the description the user who created the tweet wrote in their biography.
-        #     The user's location (status.user.location). This is the location the user who created the tweet wrote in their biography.
-        #     The screen name of the user (status.user.screen_name).
-        #     When the user's account was created (status.user.created_at).
-        #     How many followers the user has (status.user.followers_count).
-        #     The background color the user has chosen for their profile (status.user.profile_background_color).
-        #     The text of the tweet (status.text).
-        #     The unique id that Twitter assigned to the tweet (status.id_str).
-        #     When the tweet was sent (status.created_at).
-        #     How many times the tweet has been retweeted (status.retweet_count).
-        #     The tweet's coordinates (status.coordinates). The geographic coordinates from where the tweet was sent.
-
 
         # NOTE: important to use APPEND mode and NOT write mode so that we dont overrite existing tweets
         with open("collected_tweets/{}".format(self.filename), 'a') as csv_file:
-            
+
             csv_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerow([text])
-
-
 
     # Override the on_error method of StreamListener so that we can handle errors coming from the Twitter API properly
     # The Twitter API will send a 420 status code if we're being rate limited. If this happens --> disconnect, any other error, keep going
@@ -115,38 +92,10 @@ class StreamListener(tweepy.StreamListener):
             return False
 
 
-auth = tweepy.OAuthHandler(env.TWITTER_APP_KEY, env.TWITTER_APP_SECRET)
-auth.set_access_token(env.TWITTER_KEY, env.TWITTER_SECRET)
-api = tweepy.API(auth)
-
-stream_listener = StreamListener()
-# We pass in our stream_listener so that our callback functions are called
-# stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-# stream.filter(track=TRACK_TERMS) # Start streaming tweets
-
-
-print(db.tables)
-print(db['tweets'].columns)
-print(len(db['tweets']))
-all_tweets = db['tweets'].all()
-print(all_tweets)
-
-for tweet in all_tweets:
-    print(tweet)
 
 
 
 
-    # print("user_description:", tweet)
-
-# cursor = conn.cursor()
-# query = 'select * from your_table_name'
-#
-# with open("output.csv","w") as outfile:
-#     writer = csv.writer(outfile, quoting=csv.QUOTE_NONNUMERIC)
-#     writer.writerow(col[0] for col in cursor.description)
-#     for row in cursor:
-#         writer.writerow(row)
 
 # OrderedDict([('id', 3180), ('user_description', 'Mom of 3 Mixed Princesses 👑\nCountry Over Party 🇺🇲\n#AntiWar is #
 # ProLife ♥\nReject Socialism & Communism ✌️\n#NeverHillary #BiTwitter\n#Pete2020 🌈 #Tulsi2020 🌺'), ('user_location'
@@ -155,21 +104,3 @@ for tweet in all_tweets:
 # d', datetime.datetime(2019, 4, 22, 5, 31, 16)), ('user_followers', 101), ('id_str', '1125824701983592448'), ('created
 # ', datetime.datetime(2019, 5, 7, 18, 8, 20)), ('retweet_count', 0), ('user_bg_color', 'F5F8FA'), ('polarity', None),
 # ('subjectivity', None)])
-
-
-# ['tweets']
-# ['id', 'user_description', 'user_location', 'coordinates', 'text', 'user_name', 'user_created', 'user_followers', 'id_str', 'created', 'retweet_count', 'user_bg_color', 'polarity', 'subjectivity']
-# 3181
-# <dataset.util.ResultIter object at 0x11cd3e0b8>
-
-#TODO:
-# Iterate over the database and read tweet to csv
-# The new csv file should overrite the old one
-# I should use the csv module to format as iterating
-
-
-# with open('formatted_tweets.csv', 'w') as file:
-#     writer = csv.writer(file)
-#     writer.writerow(['id', 'user_description', 'user_location', 'coordinates', 'text', 'user_name', 'user_created', 'user_followers', 'id_str', 'created', 'retweet_count', 'user_bg_color', 'polarity', 'subjectivity'])
-#     for tweet in all_tweets:
-#         writer.writerows(tweet)
