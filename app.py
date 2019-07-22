@@ -20,17 +20,21 @@ def start_streaming():
     # Grab user input from url parameter and remove whitespace
     hashtag = request.args.get('hashtag').replace(" ", "")
 
-    # TODO: Refactor to stream tweets based on user input from search bar
-    TRACK_TERMS = [hashtag]
 
+    # Tweepy API Authentication
     auth = tweepy.OAuthHandler(env.TWITTER_APP_KEY, env.TWITTER_APP_SECRET)
     auth.set_access_token(env.TWITTER_KEY, env.TWITTER_SECRET)
     api = tweepy.API(auth)
 
-    twitter_stream_listener = StreamListener()
+    # Init Tweepy Stream Listener
+    twitter_stream_listener = StreamListener(hashtag)
+
+    # List of hashtags to track, currently testing with single hashtag
+    track_terms = [hashtag]
+
     # We pass in our stream_listener so that our callback functions are called
     stream = tweepy.Stream(auth=api.auth, listener=twitter_stream_listener)
-    stream.filter(track=TRACK_TERMS) # Start streaming tweets
+    stream.filter(track=track_terms) # Start streaming tweets
 
 
     return hashtag
