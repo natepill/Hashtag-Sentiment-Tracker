@@ -12,11 +12,7 @@ Preprocess each tweet that we receive.
 Store the processed tweets into csv file
 '''
 
-# Initialize sqlite database
-# db = dataset.connect("sqlite:///tweets.db")
-# table = db["tweets"]
 
-# Twitter sent, and call an appropriate method to deal with the specific data type. It's possible to deal with events like users sending direct messages, tweets being deleted, and more. For now, we only care about when users post tweets. Thus, we'll need to override the on_status method:
 
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
@@ -90,17 +86,3 @@ class StreamListener(tweepy.StreamListener):
     def on_error(self, status_code):
         if status_code == 420:
             return False
-
-
-
-
-
-
-
-# OrderedDict([('id', 3180), ('user_description', 'Mom of 3 Mixed Princesses 👑\nCountry Over Party 🇺🇲\n#AntiWar is #
-# ProLife ♥\nReject Socialism & Communism ✌️\n#NeverHillary #BiTwitter\n#Pete2020 🌈 #Tulsi2020 🌺'), ('user_location'
-# , 'Indiana 🇺🇲'), ('coordinates', None), ('text', "No it's definitely not time to move on!\nJoe Biden is a racist an
-# d a pervert!\nHe is Hillary Clinton with a penis.… https://t.co/vOG7o22Ii1"), ('user_name', 'anhndrx'), ('user_create
-# d', datetime.datetime(2019, 4, 22, 5, 31, 16)), ('user_followers', 101), ('id_str', '1125824701983592448'), ('created
-# ', datetime.datetime(2019, 5, 7, 18, 8, 20)), ('retweet_count', 0), ('user_bg_color', 'F5F8FA'), ('polarity', None),
-# ('subjectivity', None)])
