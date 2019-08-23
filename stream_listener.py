@@ -36,6 +36,7 @@ class StreamListener(tweepy.StreamListener):
 
 
     def on_status(self, status):
+        """ Streamed tweet passes through and is added to CSV """
 
         # Stop Twitter stream after initialized time limit
         if (time.time() - self.start_time) > self.limit:
