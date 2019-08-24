@@ -31,7 +31,7 @@ class StreamListener(tweepy.StreamListener):
         ''' Initialize CSV file with headers '''
 
         with open("collected_tweets/{}".format(self.filename), 'w') as csv_file:
-            fieldnames = ['tweet_context']
+            fieldnames = ['tweet_content']
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writeheader()
 

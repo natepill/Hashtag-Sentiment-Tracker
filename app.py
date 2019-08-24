@@ -39,11 +39,13 @@ def start_streaming():
     stream.filter(track=track_terms)
 
     # Create pandas dataframe
-    dataframe = pd.read_csv('collected_tweets/{}'.format(twitter_stream_listener.filename))
+    data = pd.read_csv('collected_tweets/{}'.format(twitter_stream_listener.filename))
 
+    # Split each tweet into array of words
+    data["tweet_content"] = data.apply(lambda row: word_tokenize(row['tweet_content']), axis=1)
 
     # words = normalize(X_train)
-    data["content"] = data["content"].apply(lambda x: " ".join(normalize(x)))
+    data["tweet_content"] = data["tweet_content"].apply(lambda x: " ".join(normalize(x)))
 
 
     return hashtag
