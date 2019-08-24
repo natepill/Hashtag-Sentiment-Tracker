@@ -12,6 +12,9 @@ Preprocess each tweet that we receive.
 Store the processed tweets into csv file
 '''
 
+#NOTE: The init_csv file method may not be needed because if the file doesn't exist,
+# then it will be automatically created.
+
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
@@ -20,7 +23,7 @@ class StreamListener(tweepy.StreamListener):
         self.start_time = time.time()
         self.filename = '{}_{}.csv'.format(hashtag, self.start_time)
         self.limit = time_limit
-        
+
         self.init_csv()
         super(StreamListener, self).__init__()
 
@@ -50,29 +53,9 @@ class StreamListener(tweepy.StreamListener):
         print(status.text)
         text = status.text
 
-        # description = status.user.description
-        # loc = status.user.location
-        # coords = status.coordinates
-        # name = status.user.screen_name
-        # user_created = status.user.created_at
-        # followers = status.user.followers_count
-        # id_str = status.id_str
-        # created = status.created_at
-        # retweets = status.retweet_count
-
 
         #TODO: We could preprocess the tweets here by feeding each tweet as we stream them through our ML model
         # and then we can store the sentiment score along with these other features
-
-
-        # if coords is not None:
-        #     coords = json.dumps(coords)
-        # Other Tweet Properties: https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object
-        # Cool Doc examples:
-            # includeretweet_count — the number of times a tweet has been retweeted.
-            # withheld_in_countries — the tweet has been withheld in certain countries.
-            # favorite_count — the number of times the tweet has been favorited by other users.
-
 
         # NOTE: important to use APPEND mode and NOT write mode so that we dont overrite existing tweets
         with open("collected_tweets/{}".format(self.filename), 'a') as csv_file:

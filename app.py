@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request
 from stream_listener import StreamListener
-
+from text_preprocessing import *
 import requests
 import time
 import tweepy
 import env #Custom env file for tweepy keys
 import csv
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -34,8 +35,15 @@ def start_streaming():
     # We pass in our stream_listener so that our callback functions are called
     stream = tweepy.Stream(auth=api.auth, listener=twitter_stream_listener)
 
-    # NOTE: builtins.UnboundLocalError, UnboundLocalError: local variable 'coords' referenced before assignment
-    stream.filter(track=track_terms) # Start streaming tweets
+    # Start streaming tweets
+    stream.filter(track=track_terms)
+
+    # Create pandas dataframe
+    dataframe = pd.read_csv('collected_tweets/{}'.format(twitter_stream_listener.filename))
+
+
+    # words = normalize(X_train)
+    data["content"] = data["content"].apply(lambda x: " ".join(normalize(x)))
 
 
     return hashtag
