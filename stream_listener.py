@@ -12,8 +12,6 @@ Preprocess each tweet that we receive.
 Store the processed tweets into csv file
 '''
 
-
-
 #Overriding Tweepy's StreamListener class
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
@@ -67,8 +65,8 @@ class StreamListener(tweepy.StreamListener):
         # and then we can store the sentiment score along with these other features
 
 
-        if coords is not None:
-            coords = json.dumps(coords)
+        # if coords is not None:
+        #     coords = json.dumps(coords)
         # Other Tweet Properties: https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object
         # Cool Doc examples:
             # includeretweet_count — the number of times a tweet has been retweeted.
@@ -79,7 +77,7 @@ class StreamListener(tweepy.StreamListener):
         # NOTE: important to use APPEND mode and NOT write mode so that we dont overrite existing tweets
         with open("collected_tweets/{}".format(self.filename), 'a') as csv_file:
 
-            csv_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerow([text])
 
     # Override the on_error method of StreamListener so that we can handle errors coming from the Twitter API properly
