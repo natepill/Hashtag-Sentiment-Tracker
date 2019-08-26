@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import keras
 
+from textblob import TextBlob
 import re, string, unicodedata
 import nltk
 import contractions
