@@ -8,6 +8,7 @@ import tweepy
 import env #Custom env file for tweepy keys
 import csv
 import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 
@@ -61,10 +62,22 @@ def start_streaming():
     # Loading in trained keras model for classification
     model = load_model('emotion_classification.h5')
 
-    
+    emotion_dict = {0: 'anger', 1: 'boredom',2: 'empty',3: 'enthusiasm',4: 'fun',5: 'happiness',6: 'hate',7: 'love',8: 'neutral',9: 'relief',10: 'sadness',11: 'surprise',12: 'worry'}
+
+    y_pred = emb_model.predict(X_test) # Prediction on test data
+
+    # Storing the actual classified emotions based on model results
+    classified_emotions = []
+
+    # Classify emotion based on highest probability of sentiment
+    for sentiment in y_pred:
+        # highest probability for output class
+        max_val = np.where(sentiment == np.amax(sentiment))
+        # Store the resulting output class string
+        results.append(output_class_dict[max_val[0][0]])
 
 
-    return hashtag
+    return classified_emotions
 
 if __name__ == "__main__":
     app.run(debug=True, port=33507)
