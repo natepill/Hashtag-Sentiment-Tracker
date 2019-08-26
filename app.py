@@ -41,12 +41,21 @@ def start_streaming():
     # Create pandas dataframe
     data = pd.read_csv('collected_tweets/{}'.format(twitter_stream_listener.filename))
 
+    # Apply text cleaning to the tweet data
+    data["tweet_content"] = data["tweet_content"].apply(lambda x: " ".join(normalize(x)))
+
     # Split each tweet into array of words
     data["tweet_content"] = data.apply(lambda row: word_tokenize(row['tweet_content']), axis=1)
 
-    # words = normalize(X_train)
-    data["tweet_content"] = data["tweet_content"].apply(lambda x: " ".join(normalize(x)))
+    # Unpickling the trained tokenizer to one hot encode our tweets
+    pickled_file = open(trained_tokenizer, 'rb')
+    keras_tokenizer = pickle.load(pickled_file)
+    pickled_file.close()
 
+    # One hot encode tweets using trained keras tokenizer
+    tokenized_tweets = tk.texts_to_sequences(data["tweet_content"])
+
+    
 
     return hashtag
 
