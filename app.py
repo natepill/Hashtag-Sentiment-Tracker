@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from stream_listener import StreamListener
 from text_preprocessing import *
+from keras.models import load_model
 import requests
 import time
 import tweepy
@@ -13,11 +14,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def landing_page():
+    """ Return index page to prompt user for hashtags """
     # NOTE: CSS linkage is using absolute path, may cause issue during deployment
     return render_template('index.html')
 
 @app.route('/get_data')
 def start_streaming():
+    """ Stream tweets containing user defined hashtags and store them in a CSV file """
     # Grab user input from url parameter and remove whitespace
     hashtag = request.args.get('hashtag').replace(" ", "")
 
@@ -55,7 +58,11 @@ def start_streaming():
     # One hot encode tweets using trained keras tokenizer
     tokenized_tweets = tk.texts_to_sequences(data["tweet_content"])
 
+    # Loading in trained keras model for classification
+    model = load_model('emotion_classification.h5')
+
     
+
 
     return hashtag
 
