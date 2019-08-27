@@ -83,8 +83,8 @@ def start_streaming():
         # Store the resulting output class string
         classified_emotions.append(emotion_dict[max_val[0][0]])
 
-    return render_template('display_chart.html')
-    # return str(classified_emotions)
+
+    return str(classified_emotions)
 
 if __name__ == "__main__":
     app.run(debug=True, port=33507)
