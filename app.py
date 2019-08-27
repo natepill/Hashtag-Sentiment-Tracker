@@ -18,11 +18,15 @@ def start_streaming():
     """ Stream tweets containing user defined hashtags and store them in a CSV file """
     # Grab user input from url parameter and remove whitespace
     hashtag = request.args.get('hashtag').replace(" ", "")
-    
+
     # Histogram of emotion classifications
     emotion_histogram = apply_ml(hashtag)
 
-    return render_template('display_chart.html')
+    # NOTE: Currently throwing Tensorflow error when refreshing server after rendering html
+    # NOTE: Try making internal post request to a different route which renders the chart and
+    # also send along the emotion_histogram
+    return emotion_histogram
+    # return render_template('display_chart.html')
 
 if __name__ == "__main__":
     app.run(debug=True, port=33507)
