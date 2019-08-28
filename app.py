@@ -28,8 +28,8 @@ def start_streaming():
     # NOTE: Currently throwing Tensorflow error when refreshing server after rendering html
     # NOTE: Try making internal post request  to a different route which renders the chart and
     # also send along the emotion_histogram
-    return str(emotion_histogram)
-    # return render_template('display_chart.html')
+    # return str(emotion_histogram)
+    return render_template('display_chart.html')
 
 @app.route('/display_visualization', methods=['GET', 'POST'])
 def display_chart():
