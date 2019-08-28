@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import requests
 from applied_ml import *
 import requests
@@ -13,7 +13,7 @@ def landing_page():
     # NOTE: CSS linkage is using absolute path, may cause issue during deployment
     return render_template('index.html')
 
-@app.route('/get_data')
+@app.route('/get_data', methods=['GET', 'POST'])
 def start_streaming():
     """ Stream tweets containing user defined hashtags and store them in a CSV file """
     # Grab user input from url parameter and remove whitespace
@@ -22,18 +22,23 @@ def start_streaming():
     # Histogram of emotion classifications NOTE: currently just an array
     emotion_histogram = apply_ml(hashtag)
 
+    # redirect('http://localhost:33507/display_visualization')
+
     # TODO: Try seperating out the visualization to a different route?
-    # requests.post('http://localhost:33507/display_visualization', emotion_histogram)
+    # return requests.post('http://localhost:33507/display_visualization', emotion_histogram)
 
     # NOTE: Currently throwing Tensorflow error when refreshing server after rendering html
     # NOTE: Try making internal post request  to a different route which renders the chart and
     # also send along the emotion_histogram
+
+
     # return str(emotion_histogram)
     return render_template('display_chart.html')
 
-@app.route('/display_visualization', methods=['GET', 'POST'])
-def display_chart():
-    pass
+@app.route('/display_visualization/<histogram>', methods=['GET', 'POST'])
+def display_chart(emotion_histogram):
+    return str(emotion_histogram)
+    # return render_template('display_chart.html')
 
 
 
