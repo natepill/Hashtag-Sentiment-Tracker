@@ -3,12 +3,19 @@ from text_preprocessing import *
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import load_model
 
+
 import pickle
 import tweepy
 import env #Custom env file for tweepy keys
 import csv
 import pandas as pd
 import numpy as np
+import tensorflow as tf
+
+graph = tf.get_default_graph()
+
+
+model = load_model('emotion_classification.h5')
 
 
 def start_stream(hashtag):
@@ -50,6 +57,7 @@ def clean_data(filename):
 
     return data
 
+
 def emotion_classification(data):
     """ Apply ML model for classification and return histogram of output classes """
     # Unpickling the trained tokenizer to one hot encode our tweets
@@ -65,12 +73,13 @@ def emotion_classification(data):
     tokenized_tweets = pad_sequences(tokenized_tweets, maxlen = max_len)
 
     # Loading in trained keras model for classification
-    model = load_model('emotion_classification.h5')
+
 
     emotion_dict = {0: 'anger', 1: 'boredom',2: 'empty',3: 'enthusiasm',4: 'fun',5: 'happiness',6: 'hate',7: 'love',8: 'neutral',9: 'relief',10: 'sadness',11: 'surprise',12: 'worry'}
 
     # Prediction on streamed data
-    y_pred = model.predict(tokenized_tweets)
+    with graph.as_default():
+        y_pred = model.predict(tokenized_tweets)
 
     # Storing the actual classified emotions based on model results
     classified_emotions = []

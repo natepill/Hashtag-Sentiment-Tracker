@@ -4,6 +4,7 @@ from applied_ml import *
 import requests
 import time
 
+
 app = Flask(__name__)
 
 
