@@ -25,19 +25,16 @@ def start_streaming():
     # Histogram of emotion classifications NOTE: currently just an array
     emotion_histogram = apply_ml(hashtag)
 
-    # redirect('http://localhost:33507/display_visualization')
+
 
     # NOTE: Currently throwing Tensorflow error when refreshing server after rendering html
     # NOTE: Try making internal post request  to a different route which renders the chart and
     # also send along the emotion_histogram
 
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-    values = [10, 9, 8, 7, 6, 4, 7, 8]
+    # Just the values from the histogram
+    values = emotion_histogram.values()
 
-    return render_template('display_chart.html', values=values, labels=labels, legend=legend)
-
-
+    return render_template('chart.html', values=values)
     # return str(emotion_histogram)
     # return render_template('display_chart.html')
 
