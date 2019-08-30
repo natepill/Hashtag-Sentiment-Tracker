@@ -75,14 +75,22 @@ def emotion_classification(data):
     # Loading in trained keras model for classification
 
 
-    emotion_dict = {0: 'anger', 1: 'boredom',2: 'empty',3: 'enthusiasm',4: 'fun',5: 'happiness',6: 'hate',7: 'love',8: 'neutral',9: 'relief',10: 'sadness',11: 'surprise',12: 'worry'}
+    emotion_dict = {
+    0: 'anger', 1: 'boredom', 2: 'empty', 3: 'enthusiasm',
+    4: 'fun', 5: 'happiness', 6: 'hate', 7: 'love', 8: 'neutral',
+    9: 'relief', 10: 'sadness', 11: 'surprise', 12: 'worry'
+    }
 
     # Prediction on streamed data
     with graph.as_default():
         y_pred = model.predict(tokenized_tweets)
 
     # Storing the actual classified emotions based on model results
-    classified_emotions = {}
+    classified_emotions = {
+    'anger': 0, 'boredom': 0, 'empty': 0, 'enthusiasm': 0,
+    'fun': 0, 'happiness': 0, 'hate': 0, 'love': 0,
+    'neutral': 0, 'relief': 0, 'sadness': 0, 'suprise': 0, 'suprise': 0
+    }
 
     # Classify emotion based on highest probability of sentiment
     for sentiment in y_pred:
