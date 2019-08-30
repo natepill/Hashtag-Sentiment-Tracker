@@ -27,9 +27,6 @@ def start_streaming():
 
     # redirect('http://localhost:33507/display_visualization')
 
-    # TODO: Try seperating out the visualization to a different route?
-    # return requests.post('http://localhost:33507/display_visualization', emotion_histogram)
-
     # NOTE: Currently throwing Tensorflow error when refreshing server after rendering html
     # NOTE: Try making internal post request  to a different route which renders the chart and
     # also send along the emotion_histogram
