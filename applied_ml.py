@@ -82,7 +82,7 @@ def emotion_classification(data):
         y_pred = model.predict(tokenized_tweets)
 
     # Storing the actual classified emotions based on model results
-    classified_emotions = []
+    classified_emotions = {}
 
     # Classify emotion based on highest probability of sentiment
     for sentiment in y_pred:
@@ -90,7 +90,15 @@ def emotion_classification(data):
         max_val = np.where(sentiment == np.amax(sentiment))
         # Store the resulting output class string
         # NOTE may want to create histogram here
-        classified_emotions.append(emotion_dict[max_val[0][0]])
+        emotion = emotion_dict[max_val[0][0]]
+
+        # Build histogram
+        if emotion in classified_emotions:
+            classified_emotions[emotion] += 1
+        else:
+            classified_emotions[emotion] = 1
+
+
 
     return classified_emotions
 

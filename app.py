@@ -14,6 +14,8 @@ def landing_page():
     # NOTE: CSS linkage is using absolute path, may cause issue during deployment
     return render_template('index.html')
 
+# NOTE: Follow the below for chart js and templates
+# https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
 @app.route('/get_data', methods=['GET', 'POST'])
 def start_streaming():
     """ Stream tweets containing user defined hashtags and store them in a CSV file """
@@ -32,13 +34,21 @@ def start_streaming():
     # NOTE: Try making internal post request  to a different route which renders the chart and
     # also send along the emotion_histogram
 
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    values = [10, 9, 8, 7, 6, 4, 7, 8]
+    return render_template('display_chart.html', values=values, labels=labels, legend=legend)
+
 
     # return str(emotion_histogram)
-    return render_template('display_chart.html')
+    # return render_template('display_chart.html')
 
-@app.route('/display_visualization/<histogram>', methods=['GET', 'POST'])
-def display_chart(emotion_histogram):
-    return str(emotion_histogram)
+
+
+
+# @app.route('/display_visualization/', methods=['GET', 'POST'])
+# def display_chart(emotion_histogram):
+#     return str(emotion_histogram)
     # return render_template('display_chart.html')
 
 
