@@ -26,9 +26,7 @@ def start_streaming():
     emotion_histogram = apply_ml(hashtag)
 
 
-
-    #NOTE: Need to pad list with defaults values (0) to match length of labels (13)
-    # Frequencies from the histogram
+    # List of frequencies from the histogram
     values = list(emotion_histogram.values())
 
     # return str(values)
