@@ -31,12 +31,10 @@ def start_streaming():
     # Frequencies from the histogram
     values = list(emotion_histogram.values())
 
-    return str(values)
-    # return render_template('display_chart.html', values=values)
+    # return str(values)
+    return render_template('display_chart.html', values=values)
     # return str(emotion_histogram)
     # return render_template('display_chart.html')
-
-
 
 
 # @app.route('/display_visualization/', methods=['GET', 'POST'])
