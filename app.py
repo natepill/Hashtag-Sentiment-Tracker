@@ -35,10 +35,6 @@ def start_streaming():
     # return render_template('display_chart.html')
 
 
-# @app.route('/display_visualization/', methods=['GET', 'POST'])
-# def display_chart(emotion_histogram):
-#     return str(emotion_histogram)
-    # return render_template('display_chart.html')
 
 
 
