@@ -30,7 +30,7 @@ def start_streaming():
     values = list(emotion_histogram.values())
 
     # return str(values)
-    return render_template('display_chart.html', values=values)
+    return render_template('display_chart.html', data=values)
     # return str(emotion_histogram)
     # return render_template('display_chart.html')
 
