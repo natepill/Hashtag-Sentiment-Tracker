@@ -1,13 +1,17 @@
-let ctx = document.getElementById('myChart').getContext('2d');
+// Attempt #1
 
-let labels = ['Pizza 🍕', 'Taco 🌮', 'Hot Dog 🌭', 'Sushi 🍣', 'Waffles'];
-let colorHex = ['#FB3640', '#EFCA08', '#43AA8B', '#253D5B', '#006633'];
+let ctx = document.getElementById('myChart').getContext('2d');
+let labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
+let colorHex = ['#a91834', '#4B1858', '#ffffff', '#00daff', '#006633', '#8cff1f', '#000000', '#d86a77', '#EEEEEE', '#a9b6aa', '#f3d8a5', '#353D5B', '#97bd91'];
+
 
 let myChart = new Chart(ctx, {
   type: 'pie',
   data: {
     datasets: [{
-      data: [30, 10, 40, 20, 20],
+    data : [{% for item in user_data %}
+            {{item}},
+          {% endfor %}],
       backgroundColor: colorHex
     }],
     labels: labels

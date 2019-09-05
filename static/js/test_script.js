@@ -1,13 +1,13 @@
 let ctx = document.getElementById('myChart').getContext('2d');
 
-let labels = ['Pizza 🍕', 'Taco 🌮', 'Hot Dog 🌭', 'Sushi 🍣', 'Waffles'];
-let colorHex = ['#FB3640', '#EFCA08', '#43AA8B', '#253D5B', '#006633'];
+let labels = ['Pizza 🍕', 'Taco 🌮', 'Hot Dog 🌭', 'Sushi 🍣', 'Waffles', 'Bread'];
+let colorHex = ['#FB3640', '#EFCA08', '#43AA8B', '#253D5B', '#006633', '#000000'];
 
 let myChart = new Chart(ctx, {
   type: 'pie',
   data: {
     datasets: [{
-      data: [30, 10, 40, 20, 20],
+      data: user_data,
       backgroundColor: colorHex
     }],
     labels: labels

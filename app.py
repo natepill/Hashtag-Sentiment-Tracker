@@ -27,10 +27,13 @@ def start_streaming():
 
 
     # List of frequencies from the histogram
-    values = list(emotion_histogram.values())
+    frequencies = list(emotion_histogram.values())
 
+    print("Histogram: {} \n Length: {}".format(frequencies, len(frequencies)))
+
+    test_values = [30, 10, 40, 20, 20, 50]
     # return str(values)
-    return render_template('display_chart.html', data=values)
+    return render_template('display_chart.html', user_data=frequencies)
     # return str(emotion_histogram)
     # return render_template('display_chart.html')
 

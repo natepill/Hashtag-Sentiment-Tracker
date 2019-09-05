@@ -89,10 +89,10 @@ def emotion_classification(data):
     classified_emotions = {
     'anger': 0, 'boredom': 0, 'empty': 0, 'enthusiasm': 0,
     'fun': 0, 'happiness': 0, 'hate': 0, 'love': 0,
-    'neutral': 0, 'relief': 0, 'sadness': 0, 'suprise': 0, 'suprise': 0, 'worry':0
+    'neutral': 0, 'relief': 0, 'sadness': 0, 'surprise': 0, 'worry':0
     }
 
-    print("CLASSIFIED EMOTIONS: {}".format(len(classified_emotions)))
+    # print("CLASSIFIED EMOTIONS: {}".format(len(classified_emotions)))
 
     # Classify emotion based on highest probability of sentiment
     for sentiment in y_pred:
@@ -122,6 +122,6 @@ def apply_ml(hashtag):
     csv_filename = start_stream(hashtag)
     cleaned_data = clean_data(csv_filename)
     histogram = emotion_classification(cleaned_data)
-    print("APPLIED ML\n =========== \n  Histogram: {} \n Length: {}".format(histogram, len(histogram)))
+    # print("APPLIED ML\n =========== \n  Histogram: {} \n Length: {}".format(histogram, len(histogram)))
 
     return histogram
