@@ -31,9 +31,14 @@ def start_streaming():
 
     print("Histogram: {} \n Length: {}".format(frequencies, len(frequencies)))
 
-    test_values = [30, 10, 40, 20, 20, 50]
-    # return str(values)
-    return render_template('display_chart.html', user_data=frequencies)
+    labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
+    values = frequencies
+
+    # Confirming equal lengths
+    print("Label Length: {}".format(len(labels)))
+    print("Number of frequencies: {}".format(len(values)))
+
+    return render_template('display_chart.html', values=values, labels=labels)
     # return str(emotion_histogram)
     # return render_template('display_chart.html')
 
