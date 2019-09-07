@@ -33,9 +33,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <script type="text/javascript">
-  window.onload = function() {
 
-    };
+      fetch_data = function () {
+
+      }
+      window.onload = function() {
+          const getBreeds = () => {
+            try {
+              return axios.get('http://127.0.0.1:5000/')
+            } catch (error) {
+              console.error(error)
+            }
+          }
+        };
   </script>
   <script src="../static/js/pie_script.js"></script>
 </body>
