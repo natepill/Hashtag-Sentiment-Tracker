@@ -15,7 +15,13 @@ def landing_page():
     return render_template('index.html')
 
 
+
+
 # DEBUG NOTE: In order to render chart with dynamic data:
+#NOTE: The reason why I can't simply pass values via Flask's render_template is because
+# Im not trying to pass values to an html template. I'm trying to utilize values in the JS file
+# which cannot have values passed in. Uh DUH!
+
 # Put the chart JS inside the html inside a script tag
 # Create a function that does an Axios request to server to retrieve data and labels and then render the chart with that data
 # This means I may have to refactor my main app file to
@@ -39,6 +45,7 @@ def start_streaming():
     values = list(emotion_histogram.values())
     print("Histogram: {} \n Length: {}".format(frequencies, len(frequencies)))
 
+    # 13 Emotion classes
     labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
 
 
@@ -54,10 +61,14 @@ def start_streaming():
 
 # NOTE: Follow the below for chart js and templates
 # https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
-@app.route('/get_data', methods=['GET'])
-def start_streaming():
+@app.route('/display_chart', methods=['GET'])
+def pie_chart():
 
-    return render_template('display_chart.html')
+    # Grab user input from url parameter and remove whitespace
+    hashtag = request.args.get('hashtag').replace(" ", "")
+
+    print("This is hashtag:", hashtag)
+    return render_template('display_chart.html', hashtag=hashtag)
 
 
 

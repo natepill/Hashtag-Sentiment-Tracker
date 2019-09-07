@@ -33,21 +33,38 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  
+
   <script type="text/javascript">
 
-      fetch_data = function () {
+    console.log("HELLLLLLO")
+    // console.log(`hashtag: ${hashtag}`)
 
-      }
-      window.onload = function() {
-          const getBreeds = () => {
-            try {
-              return axios.get('http://127.0.0.1:5000/')
-            } catch (error) {
-              console.error(error)
-            }
-          }
-        };
+    // Fetch data from Flask API to return
+      // const data = async () => {
+      //   try {
+      //     return await axios.get('http://127.0.0.1:5000/get_data')
+      //   } catch (error) {
+      //     console.error(error)
+      //   }
+      // }
+      //
+      // const countBreeds = async () => {
+      //   const breeds = await getBreeds()
+      //
+      //   if (breeds.data.message) {
+      //     console.log(`Got ${Object.entries(breeds.data.message).length} breeds`)
+      //   }
+      // }
+      //
+      // window.onload = function() {
+      //     const getBreeds = () => {
+      //       try {
+      //         return axios.get('http://127.0.0.1:5000/')
+      //       } catch (error) {
+      //         console.error(error)
+      //       }
+      //     }
+      //   };
   </script>
   <script src="../static/js/pie_script.js"></script>
 </body>
