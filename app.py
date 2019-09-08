@@ -63,6 +63,11 @@ def start_streaming():
 # https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
 @app.route('/display_chart', methods=['GET'])
 def pie_chart():
+    """ Displays pie chart visualization of emtion classifications """
+
+    #NOTE: If this route is hit after search, we need to retain the user input for the
+    # hashtag. Maybe we can render display_chart with the hashtag and pass it along in our
+    # request to the get_data route.
 
     # Grab user input from url parameter and remove whitespace
     hashtag = request.args.get('hashtag').replace(" ", "")
