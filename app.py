@@ -43,7 +43,7 @@ def start_streaming():
 
     # List of frequencies from the histogram
     values = list(emotion_histogram.values())
-    print("Histogram: {} \n Length: {}".format(frequencies, len(frequencies)))
+    print("Histogram: {} \n Length: {}".format(values, len(values)))
 
     # 13 Emotion classes
     labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
@@ -65,7 +65,7 @@ def start_streaming():
 def pie_chart():
     """ Displays pie chart visualization of emtion classifications """
 
-    #NOTE: If this route is hit after search, we need to retain the user input for the
+    #NOTE: If this route is hit after search, we need  to retain the user input for the
     # hashtag. Maybe we can render display_chart with the hashtag and pass it along in our
     # request to the get_data route.
 
