@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import requests
 from applied_ml import *
 import requests
@@ -17,15 +17,15 @@ def landing_page():
 
 # NOTE: Follow the below for chart js and templates
 # https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
-@app.route('/display_chart', methods=['GET'])
-def pie_chart():
+@app.route('/display_chart/<values>')
+def display_chart(values):
     """ Displays pie chart visualization of emtion classifications """
 
-    # Grab user input from url parameter and remove whitespace
-    hashtag = request.args.get('hashtag').replace(" ", "")
+    # TEST for passing arguments via redirect from /get_data
+    return str(values)
 
-    # Load empty chart visualization and pass hashtag to Front End
-    return render_template('display_chart.html', hashtag=hashtag)
+    # Load empty chart visualization
+    # return render_template('display_chart.html')
 
 
 
@@ -41,24 +41,9 @@ def pie_chart():
 # We may want to do Async Await the Axios request in order to first get the data to render
 # to set timeout request in order to allow the API to return the necessary data
 # to render the chart
-@app.route('/get_data', methods=['GET'])
+
+@app.route('/get_data', methods=['GET', 'POST'])
 def stream_data():
-    """ Stream tweets containing user defined hashtags and store them in a CSV file """
-
-    # Histogram of emotion classifications
-    emotion_histogram = apply_ml(hashtag)
-
-    # List of frequencies from the histogram
-    values = list(emotion_histogram.values())
-
-    # Pass along the computed frequencies for the emotion classes
-    return redirect(url_for('display_chart', values=values))
-
-
-
-
-@app.route('/get_data', methods=['GET'])
-def start_streaming():
     """ Stream tweets containing user defined hashtags and store them in a CSV file """
     # Grab user input from url parameter and remove whitespace
     hashtag = request.args.get('hashtag').replace(" ", "")
@@ -66,25 +51,49 @@ def start_streaming():
     # Histogram of emotion classifications
     emotion_histogram = apply_ml(hashtag)
 
+    # String of frequencies from the histogram so we can pass to route
+    # values = ''.join(list(emotion_histogram.values()))
 
     # List of frequencies from the histogram
     values = list(emotion_histogram.values())
 
-    print("Histogram: {} \n Length: {}".format(values, len(values)))
+    print(f"VALUES: {values}")
 
-    # 13 Emotion classes
-    labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
-
-
-    # Confirming equal lengths
-    print("Labels and Length: {}:{}".format(labels,len(labels)))
-    print("Frequencies and Frequency Length: {}:{}".format(values,len(values)))
+    # Pass along the computed frequencies for the emotion classes
+    return url_for('display_chart', values=values)
 
 
-    # Frequencies and labels to be used to fill Pie chart
-    return (values, labels)
 
-    # return render_template('display_chart.html', values=values, labels=labels)
+# NOTE: Keep for reference
+
+# @app.route('/get_data', methods=['GET'])
+# def start_streaming():
+#     """ Stream tweets containing user defined hashtags and store them in a CSV file """
+#     # Grab user input from url parameter and remove whitespace
+#     hashtag = request.args.get('hashtag').replace(" ", "")
+#
+#     # Histogram of emotion classifications
+#     emotion_histogram = apply_ml(hashtag)
+#
+#
+#     # List of frequencies from the histogram
+#     values = list(emotion_histogram.values())
+#
+#     print("Histogram: {} \n Length: {}".format(values, len(values)))
+#
+#     # 13 Emotion classes
+#     labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
+#
+#
+#     # Confirming equal lengths
+#     print("Labels and Length: {}:{}".format(labels,len(labels)))
+#     print("Frequencies and Frequency Length: {}:{}".format(values,len(values)))
+#
+#
+#     # Frequencies and labels to be used to fill Pie chart
+#     return (values, labels)
+#
+#     # return render_template('display_chart.html', values=values, labels=labels)
 
 
 
