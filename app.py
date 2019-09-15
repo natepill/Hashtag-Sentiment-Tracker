@@ -15,6 +15,18 @@ def landing_page():
     return render_template('index.html')
 
 
+# NOTE: Follow the below for chart js and templates
+# https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
+@app.route('/display_chart', methods=['GET'])
+def pie_chart():
+    """ Displays pie chart visualization of emtion classifications """
+
+    # Grab user input from url parameter and remove whitespace
+    hashtag = request.args.get('hashtag').replace(" ", "")
+
+    # Load empty chart visualization and pass hashtag to Front End
+    return render_template('display_chart.html', hashtag=hashtag)
+
 
 
 # DEBUG NOTE: In order to render chart with dynamic data:
@@ -29,6 +41,20 @@ def landing_page():
 # We may want to do Async Await the Axios request in order to first get the data to render
 # to set timeout request in order to allow the API to return the necessary data
 # to render the chart
+@app.route('/get_data', methods=['GET'])
+def stream_data():
+    """ Stream tweets containing user defined hashtags and store them in a CSV file """
+
+    # Histogram of emotion classifications
+    emotion_histogram = apply_ml(hashtag)
+
+    # List of frequencies from the histogram
+    values = list(emotion_histogram.values())
+
+    # Pass along the computed frequencies for the emotion classes
+    return redirect(url_for('display_chart', values=values))
+
+
 
 
 @app.route('/get_data', methods=['GET'])
@@ -43,6 +69,7 @@ def start_streaming():
 
     # List of frequencies from the histogram
     values = list(emotion_histogram.values())
+
     print("Histogram: {} \n Length: {}".format(values, len(values)))
 
     # 13 Emotion classes
@@ -54,26 +81,10 @@ def start_streaming():
     print("Frequencies and Frequency Length: {}:{}".format(values,len(values)))
 
 
+    # Frequencies and labels to be used to fill Pie chart
+    return (values, labels)
 
-    return render_template('display_chart.html', values=values, labels=labels)
-
-
-
-# NOTE: Follow the below for chart js and templates
-# https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
-@app.route('/display_chart', methods=['GET'])
-def pie_chart():
-    """ Displays pie chart visualization of emtion classifications """
-
-    #NOTE: If this route is hit after search, we need  to retain the user input for the
-    # hashtag. Maybe we can render display_chart with the hashtag and pass it along in our
-    # request to the get_data route.
-
-    # Grab user input from url parameter and remove whitespace
-    hashtag = request.args.get('hashtag').replace(" ", "")
-
-    print("This is hashtag:", hashtag)
-    return render_template('display_chart.html', hashtag=hashtag)
+    # return render_template('display_chart.html', values=values, labels=labels)
 
 
 
