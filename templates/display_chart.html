@@ -19,6 +19,9 @@
   <!-- NOTE: May have to include hidden input for hashtag to make request with to server to start stream -->
   <!-- <input type="hidden" id="hashtag_id" value={{hashtag}}> -->
 
+  <input type="hidden" value= {{values}} id='frequencies'>
+  <input type="hidden" value= {{labels}} id='emotion_classes'>
+
   <div class="wrapper">
     <div class="container d-flex flex-column justify-content-center align-items-center">
       <div class="title text-center mb-5">
@@ -38,25 +41,29 @@
 
   <script>
 
-     const axios = require('axios')
+     // const axios = require('axios')
 
-      window.onload = function() {
-        const getData = async() => {
-          try {
-            return await axios.get('http://127.0.0.1:5000/get_data')
-          } catch (error) {
-            console.error(error)
-          }
-        }
+      // window.onload = function() {
+
+      var frequencies = $('#frequencies').val();
+      var emotion_classes = $('#emotion_classes').val();
+
+        // const getData = async() => {
+        //   try {
+        //     return await axios.get('http://127.0.0.1:5000/get_data')
+        //   } catch (error) {
+        //     console.error(error)
+        //   }
+        // }
+
+     // console.log($`getData: ${getData}`)
 
       let ctx = document.getElementById('myChart').getContext('2d');
       let colorHex = ['#a91834', '#4B1858', '#ffffff', '#00daff', '#006633', '#8cff1f', '#000000', '#d86a77', '#EEEEEE', '#a9b6aa', '#f3d8a5', '#353D5B', '#97bd91'];
 
       console.log("HELLO")
-      console.log(`values: ${values}`);
+      console.log(`values: ${frequencies}`);
       console.log(`labels: ${labels}`);
-
-
 
       // May not need iterative rendering, just assign passed in array values
       // https://www.patricksoftwareblog.com/creating-charts-with-chart-js-in-a-flask-application/
@@ -65,14 +72,10 @@
         type: 'pie',
         data: {
           datasets: [{
-          data : [{% for item in values %}
-                      {{item}},
-                    {% endfor %}],
+          data : frequencies,
             backgroundColor: colorHex
           }],
-          labels: [{% for item in labels %}
-                   "{{item}}",
-                  {% endfor %}]
+          labels: emotion_classes
         },
         options: {
           responsive: true,
@@ -104,7 +107,7 @@
       })
 
 
-  } // End Window on load
+  // } // End Window onload
   </script>
 
   <!-- <script src="../static/js/pie_script.js"></script> -->

@@ -21,11 +21,15 @@ def landing_page():
 def display_chart(values):
     """ Displays pie chart visualization of emtion classifications """
 
-    # TEST for passing arguments via redirect from /get_data
-    return str(values)
+    # Confirming equal lengths
+    print("Labels and Length: {}:{}".format(labels,len(labels)))
+    print("Frequencies and Frequency Length: {}:{}".format(values,len(values)))
+
+    # 13 Emotion classes
+    labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
 
     # Load empty chart visualization
-    # return render_template('display_chart.html')
+    return render_template('display_chart.html', values=values, labels=labels)
 
 
 
@@ -92,8 +96,8 @@ def stream_data():
 #
 #     # Frequencies and labels to be used to fill Pie chart
 #     return (values, labels)
-#
-#     # return render_template('display_chart.html', values=values, labels=labels)
+
+    # return render_template('display_chart.html', values=values, labels=labels)
 
 
 
