@@ -4,6 +4,7 @@ from applied_ml import *
 import requests
 import time
 import os
+import json
 
 
 app = Flask(__name__)
@@ -34,14 +35,11 @@ def display_chart(values):
     # TODO: Make get request from client side to retrive frequencies
     # NOTE: Bro, this route aint even needed then, just do all this in the get_data route
 
-
-
     # Load empty chart visualization
-    return render_template('display_chart.html')
+    return render_template()
 
 
-
-# DEBUG NOTE: In order to render chart with dynamic data:
+# DEBUG NOTE: In order to render chart with user data:
 #NOTE: The reason why I can't simply pass values via Flask's render_template is because
 # Im not trying to pass values to an html template. I'm trying to utilize values in the JS file
 # which cannot have values passed in. Uh DUH!
@@ -75,23 +73,28 @@ def stream_data():
 
     # Store data on server to call for from client side
     store_data = {'labels':labels, 'frequencies': values}
+
     curr_time = time.time()
     results_file_path = f'predicted_results/{hashtag}_{curr_time}'
 
     with open(results_file_path, 'w') as file:
         json.dump(store_data, file)
 
+    # TODO: Quickly try:
+    # Follow the below for chart js and templates
+    # https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
 
+    # Render empty chart page
+    # TODO: Note add some note, or loading JS animation to the client side as we await
+    # for the return call from the server to return the data to populate our chart JS
+    # visualization
 
-
-
-    print(f"VALUES: {values}")
-
+    print(f"\n\n\n\n\n\n\n\n\n {values}")
 
     return render_template('display_chart.html')
 
-    # Pass along the computed frequencies for the emotion classes
-    # return url_for('display_chart', values=values, hashtag= )
+    # return render_template('display_chart.html', hashtag=hashtag, curr_time=curr_time)
+
 
 
 
@@ -124,7 +127,7 @@ def stream_data():
 #     # Frequencies and labels to be used to fill Pie chart
 #     return (values, labels)
 
-    # return render_template('display_chart.html', values=values, labels=labels)
+    # return render_template()
 
 
 
