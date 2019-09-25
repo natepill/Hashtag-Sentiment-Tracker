@@ -3,6 +3,7 @@ import requests
 from applied_ml import *
 import requests
 import time
+import os
 
 
 app = Flask(__name__)
@@ -28,8 +29,15 @@ def display_chart(values):
     # 13 Emotion classes
     labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
 
+
+    # TODO: Store the values in server folder and just render
+    # TODO: Make get request from client side to retrive frequencies
+    # NOTE: Bro, this route aint even needed then, just do all this in the get_data route
+
+
+
     # Load empty chart visualization
-    return render_template('display_chart.html', values=values, labels=labels)
+    return render_template('display_chart.html')
 
 
 
@@ -58,13 +66,32 @@ def stream_data():
     # String of frequencies from the histogram so we can pass to route
     # values = ''.join(list(emotion_histogram.values()))
 
+    # 13 Emotion classes
+    labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
+
+
     # List of frequencies from the histogram
     values = list(emotion_histogram.values())
 
+    # Store data on server to call for from client side
+    store_data = {'labels':labels, 'frequencies': values}
+    curr_time = time.time()
+    results_file_path = f'predicted_results/{hashtag}_{curr_time}'
+
+    with open(results_file_path, 'w') as file:
+        json.dump(store_data, file)
+
+
+
+
+
     print(f"VALUES: {values}")
 
+
+    return render_template('display_chart.html')
+
     # Pass along the computed frequencies for the emotion classes
-    return url_for('display_chart', values=values)
+    # return url_for('display_chart', values=values, hashtag= )
 
 
 
