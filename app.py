@@ -39,6 +39,22 @@ def display_chart(values):
     return render_template()
 
 
+@app.route('/get_frequencies')
+def get_emotion_classifications(hashtag, curr_time):
+
+    classifications_json = open('predicted_results.json', 'r')
+
+    json_decoded = json.load(classifications_json)
+
+    classifications_json.close()
+
+    return json_decoded
+
+
+
+
+
+
 # DEBUG NOTE: In order to render chart with user data:
 #NOTE: The reason why I can't simply pass values via Flask's render_template is because
 # Im not trying to pass values to an html template. I'm trying to utilize values in the JS file
@@ -75,7 +91,7 @@ def stream_data():
     store_data = {'labels':labels, 'frequencies': values}
 
     curr_time = time.time()
-    results_file_path = f'predicted_results/{hashtag}_{curr_time}'
+    results_file_path = f'predicted_results/{hashtag}_{curr_time}.json'
 
     with open(results_file_path, 'w') as file:
         json.dump(store_data, file)
@@ -91,7 +107,7 @@ def stream_data():
 
     print(f"\n\n\n\n\n\n\n\n\n {values}")
 
-    return render_template('display_chart.html')
+    return render_template('display_chart.html', hashtag=hashtag, curr_time=curr_time)
 
     # return render_template('display_chart.html', hashtag=hashtag, curr_time=curr_time)
 
