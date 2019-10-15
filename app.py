@@ -17,48 +17,11 @@ def landing_page():
     return render_template('index.html')
 
 
-# NOTE: Follow the below for chart js and templates
-# https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
-@app.route('/display_chart/<values>')
-def display_chart(values):
-    """ Displays pie chart visualization of emtion classifications """
-
-    # Confirming equal lengths
-    print("Labels and Length: {}:{}".format(labels,len(labels)))
-    print("Frequencies and Frequency Length: {}:{}".format(values,len(values)))
-
-    # 13 Emotion classes
-    labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
-
-
-    # TODO: Store the values in server folder and just render
-    # TODO: Make get request from client side to retrive frequencies
-    # NOTE: Bro, this route aint even needed then, just do all this in the get_data route
-
-    # Load empty chart visualization
-    return render_template()
-
-
-@app.route('/get_frequencies')
-def get_emotion_classifications(hashtag, curr_time):
-
-    classifications_json = open('predicted_results.json', 'r')
-
-    json_decoded = json.load(classifications_json)
-
-    classifications_json.close()
-
-    return json_decoded
-
-
-
-
-
 
 # DEBUG NOTE: In order to render chart with user data:
 #NOTE: The reason why I can't simply pass values via Flask's render_template is because
 # Im not trying to pass values to an html template. I'm trying to utilize values in the JS file
-# which cannot have values passed in. Uh DUH!
+# which cannot have values passed in.
 
 # Put the chart JS inside the html inside a script tag
 # Create a function that does an Axios request to server to retrieve data and labels and then render the chart with that data
@@ -107,11 +70,25 @@ def stream_data():
     # for the return call from the server to return the data to populate our chart JS
     # visualization
 
-    # print(f"\n\n\n\n\n\n\n\n\n {values}")
 
+    # TODO Need to store hashtag and current time inside hidden tags, extract that w/ JS, and await a request
+    # Rendering the template with the necessary components to retrieve the logged form
     return render_template('display_chart.html', hashtag=hashtag, curr_time=curr_time)
 
-    # return render_template('display_chart.html', hashtag=hashtag, curr_time=curr_time)
+
+@app.route('/get_classifications')
+def get_emotion_classifications(hashtag, curr_time):
+
+    classifications_json = open('predicted_results.json', 'r')
+
+    json_decoded = json.load(classifications_json)
+
+    classifications_json.close()
+
+    return json_decoded
+
+
+
 
 
 
@@ -146,6 +123,30 @@ def stream_data():
 #     return (values, labels)
 
     # return render_template()
+
+
+
+# NOTE: DEPRECIATED ROUTE
+# NOTE: Follow the below for chart js and templates
+# https://gitlab.com/patkennedy79/flask_chartjs_example/tree/master
+# @app.route('/display_chart/<values>')
+# def display_chart(values):
+#     """ Displays pie chart visualization of emtion classifications """
+#
+#     # Confirming equal lengths
+#     print("Labels and Length: {}:{}".format(labels,len(labels)))
+#     print("Frequencies and Frequency Length: {}:{}".format(values,len(values)))
+#
+#     # 13 Emotion classes
+#     labels = ['anger','boredom','empty','enthusiasm','fun','happiness','hate','love','neutral','relief','sadness','surprise','worry']
+#
+#
+#     # TODO: Store the values in server folder and just render
+#     # TODO: Make get request from client side to retrive frequencies
+#     # NOTE: Bro, this route aint even needed then, just do all this in the get_data route
+#
+#     # Load empty chart visualization
+#     return render_template()
 
 
 

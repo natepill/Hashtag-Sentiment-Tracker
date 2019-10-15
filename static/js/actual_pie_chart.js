@@ -20,8 +20,8 @@ window.onload = function() {
   let colorHex = ['#a91834', '#4B1858', '#ffffff', '#00daff', '#006633', '#8cff1f', '#000000', '#d86a77', '#EEEEEE', '#a9b6aa', '#f3d8a5', '#353D5B', '#97bd91'];
 
   console.log("HELLO")
-  console.log(`values: ${frequencies}`);
-  console.log(`labels: ${labels}`);
+  // console.log(`values: ${frequencies}`);
+  // console.log(`labels: ${labels}`);
 
   // May not need iterative rendering, just assign passed in array values
   // https://www.patricksoftwareblog.com/creating-charts-with-chart-js-in-a-flask-application/
