@@ -90,6 +90,8 @@ def stream_data():
     # Store data on server to call for from client side
     store_data = {'labels':labels, 'frequencies': values}
 
+    print(f'store_data: {store_data}')
+
     curr_time = time.time()
     results_file_path = f'predicted_results/{hashtag}_{curr_time}.json'
 
@@ -105,7 +107,7 @@ def stream_data():
     # for the return call from the server to return the data to populate our chart JS
     # visualization
 
-    print(f"\n\n\n\n\n\n\n\n\n {values}")
+    # print(f"\n\n\n\n\n\n\n\n\n {values}")
 
     return render_template('display_chart.html', hashtag=hashtag, curr_time=curr_time)
 
