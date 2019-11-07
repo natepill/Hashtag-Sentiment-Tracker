@@ -3,6 +3,8 @@ const axios = require('axios')
 
 window.onload = function() {
 
+  console.log("HELLOS!");
+
   // var frequencies = $('#frequencies').val();
   // var emotion_classes = $('#emotion_classes').val();
 

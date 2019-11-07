@@ -32,7 +32,7 @@
 
       </div>
       <div class="chart-wrapper">
-        <canvas id="myChart"></canvas>
+        <canvas id="pie-chart" width="800" height="450"> </canvas>
       </div>
     </div>
   </div>
@@ -41,15 +41,152 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <script src="../static/js/actual_pie_chart.js"></script>
+  <!-- <script src="../static/js/actual_pie_chart.js"></script> -->
   <!-- <script src="../static/js/pie_script.js"></script> -->
+
+
+  <!-- NOTE: Some things dont exist in client side JS in difference to sever side. IE: cannot require on client side with 3rd party -->
   <script>
+
+  // define the chart data
+ var chartData = {
+   labels : [{% for item in labels %}
+              "{{item}}",
+             {% endfor %}],
+   datasets : [{
+       label: '{{ legend }}',
+       fill: true,
+       lineTension: 0.1,
+       backgroundColor: "rgba(75,192,192,0.4)",
+       borderColor: "rgba(75,192,192,1)",
+       borderCapStyle: 'butt',
+       borderDash: [],
+       borderDashOffset: 0.0,
+       borderJoinStyle: 'miter',
+       pointBorderColor: "rgba(75,192,192,1)",
+       pointBackgroundColor: "#fff",
+       pointBorderWidth: 1,
+       pointHoverRadius: 5,
+       pointHoverBackgroundColor: "rgba(75,192,192,1)",
+       pointHoverBorderColor: "rgba(220,220,220,1)",
+       pointHoverBorderWidth: 2,
+       pointRadius: 1,
+       pointHitRadius: 10,
+       data : [{% for item in values %}
+                 {{item}},
+               {% endfor %}],
+       spanGaps: false
+   }]
+ }
+
+
+
+      new Chart(document.getElementById("pie-chart"), {
+          type: 'pie',
+          data: {
+            labels: [{% for item in labels %}
+                       "{{item}}",
+                      {% endfor %}],
+            datasets: [{
+              label: "Population (millions)",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+              data: [{% for item in values %}
+                        {{item}},
+                      {% endfor %}]
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Predicted world population (millions) in 2050'
+            }
+          }
+      });
+
+
+
+
+
+    window.onload = function() {
+
+        // let ctx = document.getElementById('myChart').getContext('2d');
+        // let colorHex = ['#a91834', '#4B1858', '#ffffff', '#00daff', '#006633', '#8cff1f', '#000000', '#d86a77', '#EEEEEE', '#a9b6aa', '#f3d8a5', '#353D5B', '#97bd91'];
+
+        console.log("HELLO")
+        // console.log(`values: ${frequencies}`);
+        // console.log(`labels: ${labels}`);
+
+      } // End Window onload
+
+
+
+  </script>
+
+
+
+
+
+
+
+
+  <!-- <script>
       var userHashtag = document.getElementById('hashtag_id').value
       var curr_time = document.getElementById('time_id').value
       console.log(`Hashtag: ${userHashtag}`)
       console.log(`Current Time: ${curr_time}`)
-      
-  </script>
+
+      window.onload = function() {
+
+        };
+
+
+
+    // NOTE: look into: JSON.parse(this.responseText) for once we get the data successfully from server
+    // const getData = async() => {
+    //     try {
+    //       return await axios.get('http://127.0.0.1:5000/get_classifications')
+    //     } catch (error) {
+    //       console.error(error)
+    //     }
+    //   }
+
+    // console.log(getData)
+    function getData(){
+
+        const options = {
+            method: 'post',
+            body: JSON.stringify({
+              userHashtag: userHashtag,
+              curr_time: curr_time
+            }),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+        }
+
+
+        fetch('http://127.0.0.1:5000/get_classifications', options).then((res) => {
+          console.log("RETURNING RESPONSE *******************")
+          console.log(res)
+          return res.text()
+        }).then((json) => {
+          const data = JSON.parse(json)
+          console.log(data)
+
+        }).catch((err) => {
+
+          console.log(err.message)
+          return ["Error"]
+        })
+    }
+
+  </script> -->
+
+
+
+
+
 </body>
 
 </html>
