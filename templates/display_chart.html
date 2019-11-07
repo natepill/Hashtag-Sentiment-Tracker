@@ -58,8 +58,8 @@
                    "{{item}}",
                   {% endfor %}],
         datasets: [{
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          label: "Count of Emotion Frequency",
+          backgroundColor: ['#a91834', '#4B1858', '#ffffff', '#00daff', '#006633', '#8cff1f', '#000000', '#d86a77', '#EEEEEE', '#a9b6aa', '#f3d8a5', '#353D5B', '#97bd91'],
           data: [{% for item in values %}
                     {{item}},
                   {% endfor %}]
@@ -68,7 +68,7 @@
       options: {
         title: {
           display: true,
-          text: 'Predicted world population (millions) in 2050'
+          text: 'Tracked Emotions:'
         }
       }
   });
