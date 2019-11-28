@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
 from __future__ import unicode_literals
+from flask import Flask, render_template, request, redirect, url_for
 from applied_ml import *
 import requests
 import requests
