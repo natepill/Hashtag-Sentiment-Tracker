@@ -19,7 +19,7 @@ Store the processed tweets into csv file
 class StreamListener(tweepy.StreamListener):
     '''Create a listener that prints the text of any tweet that comes from the Twitter API.'''
 
-    def __init__(self, hashtag, time_limit=5):
+    def __init__(self, hashtag, time_limit=15):
         self.start_time = time.time()
         self.filename = '{}_{}.csv'.format(hashtag, self.start_time)
         self.limit = time_limit

@@ -45,7 +45,7 @@ def stream_data():
     print(f'store_data: {store_data}')
 
 
-    return render_template('display_chart.html', labels=labels, values=values)
+    return render_template('display_chart.html', labels=labels, values=values, hashtag=hashtag)
 
 
 
