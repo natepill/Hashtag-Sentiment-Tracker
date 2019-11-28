@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-import requests
+from __future__ import unicode_literals
 from applied_ml import *
+import requests
 import requests
 import time
 import os
