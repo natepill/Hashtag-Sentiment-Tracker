@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from stream_listener import StreamListener
 from text_preprocessing import *
 from keras.preprocessing.sequence import pad_sequences
@@ -122,7 +123,7 @@ def apply_ml(hashtag):
         Main function for streaming and cleaning data as well as
         applying ml for classification
     """
-
+    print("Hashtag:", hashtag)
     csv_filename = start_stream(hashtag)
     cleaned_data = clean_data(csv_filename)
     histogram = emotion_classification(cleaned_data)
