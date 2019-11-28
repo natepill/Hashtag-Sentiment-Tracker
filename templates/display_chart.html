@@ -26,10 +26,10 @@
 
   <div class="wrapper">
     <div class="container d-flex flex-column justify-content-center align-items-center">
-      <div class="title text-center mb-5">
-        <h1>How Does Twitter Feel About: #{{hashtag}}</h1>
 
-      </div>
+        <center><h1>How Does Twitter Feel About: #{{hashtag}}</h1></center>
+
+
       <div class="chart-wrapper">
         <canvas id="pie-chart" width="800" height="450"> </canvas>
       </div>
@@ -48,8 +48,6 @@
   <script>
 
 
-
-
   new Chart(document.getElementById("pie-chart"), {
       type: 'pie',
       data: {
@@ -58,7 +56,8 @@
                   {% endfor %}],
         datasets: [{
           label: "Count of Emotion Frequency",
-          backgroundColor: ['#a91834', '#4B1858', '#ffffff', '#00daff', '#006633', '#8cff1f', '#000000', '#d86a77', '#EEEEEE', '#a9b6aa', '#f3d8a5', '#353D5B', '#97bd91'],
+          backgroundColor: ['#e6194B', '#9A6324', '#fffac8', '#42d4f4', '#bfef45', '#3cb44b', '#000000', '#f032e6', '#a9a9a9', '#ffe119', '#808000', '#4363d8', '#000075'],
+
           data: [{% for item in values %}
                     {{item}},
                   {% endfor %}]
@@ -67,7 +66,6 @@
       options: {
         title: {
           display: true,
-          text: 'Tracked Emotions:'
         }
       }
   });
