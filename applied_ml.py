@@ -3,15 +3,19 @@ from text_preprocessing import *
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import load_model
 
-
 import pickle
 import tweepy
-import env #Custom env file for tweepy keys
 import csv
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 
+# Configure enviorement variables for deployment
+from dotenv import load_dotenv, find_dotenv
+import os
+load_dotenv(find_dotenv())
+
+# Start TF graph session
 graph = tf.get_default_graph()
 
 
@@ -24,8 +28,8 @@ def start_stream(hashtag):
         return resulting CSV filename
     """
     # Tweepy API Authentication
-    auth = tweepy.OAuthHandler(env.TWITTER_APP_KEY, env.TWITTER_APP_SECRET)
-    auth.set_access_token(env.TWITTER_KEY, env.TWITTER_SECRET)
+    auth = tweepy.OAuthHandler(os.getenv("TWITTER_APP_KEY"), os.getenv("TWITTER_APP_SECRET"))
+    auth.set_access_token(os.getenv("TWITTER_KEY"), os.getenv("TWITTER_SECRET"))
     api = tweepy.API(auth)
 
     # Init Tweepy Stream Listener

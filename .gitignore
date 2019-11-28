@@ -3,3 +3,4 @@ hashtag/
 __pycache__/
 env
 collected_tweets/
+.env

@@ -2,7 +2,6 @@
 import requests
 import time
 import tweepy
-import env #Custom env file for tweepy keys
 import csv
 
 
