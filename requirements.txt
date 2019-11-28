@@ -1,7 +1,7 @@
 lxml==4.2.5
 pandas==0.24.1
 textblob==0.15.3
-tensorflow==1.12.0
+tensorflow==1.12.2
 docutils==0.15.2
 tweepy==3.7.0
 inflect==2.1.0
