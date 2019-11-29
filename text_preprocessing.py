@@ -2,9 +2,12 @@ import numpy as np
 import pandas as pd
 import keras
 
-from textblob import TextBlob
-import re, string, unicodedata
+# Set nltk assets locally due to deployment issues with nltk corpora
 import nltk
+nltk.data.path.append('./nltk_data/')
+
+import re, string, unicodedata
+
 import contractions
 import inflect
 from nltk import word_tokenize, sent_tokenize
