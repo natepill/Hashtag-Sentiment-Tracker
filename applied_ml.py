@@ -12,9 +12,9 @@ import numpy as np
 import tensorflow as tf
 
 # Configure enviorement variables for deployment
-from dotenv import load_dotenv, find_dotenv
-import os
-load_dotenv(find_dotenv())
+# from dotenv import load_dotenv, find_dotenv
+# import os
+# load_dotenv(find_dotenv())
 
 # Start TF graph session
 graph = tf.get_default_graph()
@@ -28,9 +28,10 @@ def start_stream(hashtag):
         Stream data through Tweepy API with given hashtag and
         return resulting CSV filename
     """
+
     # Tweepy API Authentication
-    auth = tweepy.OAuthHandler(os.getenv("TWITTER_APP_KEY"), os.getenv("TWITTER_APP_SECRET"))
-    auth.set_access_token(os.getenv("TWITTER_KEY"), os.getenv("TWITTER_SECRET"))
+    auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
+    auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
     api = tweepy.API(auth)
 
     # Init Tweepy Stream Listener
