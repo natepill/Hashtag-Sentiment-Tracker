@@ -11,10 +11,8 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 
-# Configure enviorement variables for deployment
-# from dotenv import load_dotenv, find_dotenv
-# import os
-# load_dotenv(find_dotenv())
+import os
+
 
 # Start TF graph session
 graph = tf.get_default_graph()
