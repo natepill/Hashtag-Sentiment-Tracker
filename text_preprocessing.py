@@ -4,6 +4,7 @@ import keras
 
 # Set nltk assets locally due to deployment issues with nltk corpora
 import nltk
+nltk.download('stopwords')
 # nltk.data.path.append('./nltk_data/')
 
 import re, string, unicodedata
