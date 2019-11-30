@@ -1,6 +1,6 @@
 wordnet
 pros_cons
 reuters
-corpus
+corpora
 
 porter_test
