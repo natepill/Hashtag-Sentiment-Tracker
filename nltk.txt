@@ -2,4 +2,14 @@ wordnet
 pros_cons
 reuters
 stem
-stopwords
+corpus
+
+
+punkt
+averaged_perceptron_tagger_ru
+averaged_perceptron_tagger
+snowball_data
+rslp
+porter_test
+vader_lexicon
+treebank
