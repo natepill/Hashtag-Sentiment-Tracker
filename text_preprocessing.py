@@ -79,14 +79,7 @@ def lemmatize_verbs(words):
         lemmas.append(lemma)
     return lemmas
 
-def spell_correct(words):
-    """ Fix spelling corrections """
-    corrected_words = []
 
-    for word in words:
-        corrected_words.append(TextBlob(word).correct().raw)
-
-    return corrected_words
 
 def normalize(words):
     words = remove_non_ascii(words)
@@ -95,5 +88,4 @@ def normalize(words):
     words = replace_numbers(words)
     words = lemmatize_verbs(words)
     words = remove_stopwords(words)
-    words = spell_correct(words)
     return words
