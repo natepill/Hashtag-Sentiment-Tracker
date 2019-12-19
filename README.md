@@ -1,60 +1,55 @@
 # Hashtag Emotion Chart Visualization
 
-Ever wanted to get an overall feel of how a trending hashtag is doing on Twitter? Or maybe track how people are receiving the hashtag of your marketing campaign? Well this application allows you to do all that! Simply visit
+{INSERT IMAGE}
+
+Ever wanted to get an overall feel of how a trending hashtag is doing on Twitter? Or maybe track how people are reacting to the hashtag of your marketing campaign? Just visit {INSERT LIVE LINK} and enter the hashtag that you want to track the emotion of. It may take a 5-10 seconds to gather the tweets, but you will soon be presented with a pie chart visualization behind the emotions of what people are feeling behind that hashtag.
 
 ## How it works
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Using Tweepy, Twitter's data streaming API, in order to obtain the tweets that utilize the hashtag given by the user. All collected tweets are then saved to a CSV file and are sent to be preprocessed. Once preprocessed, the tweets are run through a neural network MLP classifier with a word embedding layer into 13 possible labels (emotions):
+* Anger
+* Boredom
+* Empty
+* Enthusiasm
+* Fun
+* Happiness
+* Hate
+* Love
+* Neutral
+* Relief
+* Sadness
+* Surprise
+* Worry
 
 
 
+### Installing and Usage
 
-## Deployment
+To utilize this application, visit: {INSERT LIVE LINK} and enter the hashtag you wish to track the emotion behind.
 
-Add additional notes about how to deploy this on a live system
+For local usage run the following commands:
+* git clone https://github.com/natepill/Hashtag-Sentiment-Tracker.git
+* cd Hashtag-Sentiment-Tracker
+* pip install -r requirements.txt
+* python app.py
+
+
+## Next Steps
+* Given multiple hashtags to track, not just a single one
+* Add user accounts so users may save and reference back to prior tracking sessions
+* Give users dashboard analytics of all the metadata from the people using the hashtag they entered provided by the Tweepy API.
+
 
 ## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* Tweepy API
+* ChartJS
+* Keras
+* Sklearn
+* nltk
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
-
-## Authors
-
-*
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License

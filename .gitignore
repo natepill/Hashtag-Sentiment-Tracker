@@ -4,3 +4,4 @@ __pycache__/
 env
 collected_tweets/
 .env
+venv/
