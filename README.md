@@ -40,8 +40,10 @@ For local usage run the following commands:
 
 
 ## Built With
+* Flask
 * Tweepy API
 * ChartJS
+* Python
 * Keras
 * Sklearn
 * nltk
