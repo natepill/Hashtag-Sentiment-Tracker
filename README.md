@@ -1,7 +1,5 @@
 # Hashtag Emotion Chart Visualization
 
-{INSERT IMAGE}
-
 Ever wanted to get an overall feel of how a trending hashtag is doing on Twitter? Or maybe track how people are reacting to the hashtag of your marketing campaign? Just visit {INSERT LIVE LINK} and enter the hashtag that you want to track the emotion of. It may take a 5-10 seconds to gather the tweets, but you will soon be presented with a pie chart visualization behind the emotions of what people are feeling behind that hashtag.
 
 ## How it works
