@@ -24,7 +24,7 @@ Using Tweepy, Twitter's data streaming API, in order to obtain the tweets that u
 
 ### Installing and Usage
 
-To utilize this application, visit: {INSERT LIVE LINK} and enter the hashtag you wish to track the emotion behind.
+To utilize this application, visit: https://hashtag-emotion-chart.herokuapp.com/ and enter the hashtag you wish to track the emotion behind.
 
 For local usage run the following commands:
 * git clone https://github.com/natepill/Hashtag-Sentiment-Tracker.git
@@ -46,9 +46,7 @@ For local usage run the following commands:
 * Sklearn
 * nltk
 
-## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## License
 
