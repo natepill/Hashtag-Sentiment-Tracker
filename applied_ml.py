@@ -31,8 +31,11 @@ def start_stream(hashtags, num_seconds):
     num_seconds = int(num_seconds)
 
     # Tweepy API Authentication
-    auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
-    auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
+    # auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
+    # auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
+
+    auth = tweepy.OAuthHandler("Pkk8FlrqP1K2rAXUsTQuirpoo", "DjzupYW7EF6IgcXaAapyGksXuMjD2yktnHlnxCMLXxduwKEz9y")
+    auth.set_access_token("776088503100776448-P148kS59DfWtjmJcia0oPcmbzOAjDDB", "Owv18e04FPkfbozmqB5kULQU3CqpufG9OvtbxG0kE9NEu")
 
 
 
