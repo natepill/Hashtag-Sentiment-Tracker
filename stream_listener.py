@@ -20,7 +20,7 @@ class StreamListener(tweepy.StreamListener):
 
     def __init__(self, hashtag, time_limit=5):
         self.start_time = time.time()
-        self.filename = '{}_{}.csv'.format(hashtag, self.start_time)
+        self.filename = '{}_{}.csv'.format(hashtag, str(self.start_time).replace('.', '_'))
         self.limit = time_limit
 
         self.init_csv()

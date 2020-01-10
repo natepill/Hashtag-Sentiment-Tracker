@@ -35,7 +35,6 @@ def start_stream(hashtags, num_seconds):
     auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
 
 
-
     #TODO set timeout to 5-10 seconds + amount of time to stream
     api = tweepy.API(auth, timeout=num_seconds+5)
 
