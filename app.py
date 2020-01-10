@@ -25,8 +25,10 @@ def stream_data():
     # Grab user input from url parameter and remove whitespace
     hashtag = request.args.get('hashtag').replace(" ", "")
 
+    num_seconds = request.args.get('num_seconds').replace(" ", "")
+
     # Histogram of emotion classifications
-    emotion_histogram = apply_ml(hashtag)
+    emotion_histogram = apply_ml(hashtag, num_seconds)
 
     # String of frequencies from the histogram so we can pass to route
     # values = ''.join(list(emotion_histogram.values()))

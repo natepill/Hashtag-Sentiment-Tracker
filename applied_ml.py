@@ -21,23 +21,25 @@ graph = tf.get_default_graph()
 model = load_model('emotion_classification.h5')
 
 
-def start_stream(hashtag):
+def start_stream(hashtag, num_seconds):
     """
         Stream data through Tweepy API with given hashtag and
         return resulting CSV filename
     """
+
+
+    num_seconds = int(num_seconds)
 
     # Tweepy API Authentication
     # auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
     # auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
 
 
-
     #TODO set timeout to 5-10 seconds + amount of time to stream
-    api = tweepy.API(auth, timeout=15)
+    api = tweepy.API(auth, timeout=num_seconds+5)
 
     # Init Tweepy Stream Listener
-    twitter_stream_listener = StreamListener(hashtag)
+    twitter_stream_listener = StreamListener(hashtag, num_seconds)
 
     # List of hashtags to track, currently testing with single hashtag
     track_terms = [hashtag]
@@ -121,13 +123,13 @@ def emotion_classification(data):
     return classified_emotions
 
 
-def apply_ml(hashtag):
+def apply_ml(hashtag, num_seconds):
     """
         Main function for streaming and cleaning data as well as
         applying ml for classification
     """
     print("Hashtag:", hashtag)
-    csv_filename = start_stream(hashtag)
+    csv_filename = start_stream(hashtag, num_seconds)
     cleaned_data = clean_data(csv_filename)
     histogram = emotion_classification(cleaned_data)
     # print("APPLIED ML\n =========== \n  Histogram: {} \n Length: {}".format(histogram, len(histogram)))
