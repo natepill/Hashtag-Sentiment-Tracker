@@ -22,13 +22,20 @@ def landing_page():
 @app.route('/get_data', methods=['GET', 'POST'])
 def stream_data():
     """ Stream tweets containing user defined hashtags and store them in a CSV file """
-    # Grab user input from url parameter and remove whitespace
-    hashtag = request.args.get('hashtag').replace(" ", "")
+    # Grab user input from url parameter
+    hashtags = request.args.get('hashtag').split(',')
 
+    # remove whitespace
+    for hashtag in hashtags:
+        hashtag.replace(" ", "")
+
+    print("HASHTAGS:", hashtags)
+
+    # User desired length of data stream from Tweepy API
     num_seconds = request.args.get('num_seconds').replace(" ", "")
 
     # Histogram of emotion classifications
-    emotion_histogram = apply_ml(hashtag, num_seconds)
+    emotion_histogram = apply_ml(hashtags, num_seconds)
 
     # String of frequencies from the histogram so we can pass to route
     # values = ''.join(list(emotion_histogram.values()))
@@ -46,7 +53,7 @@ def stream_data():
     print(f'store_data: {store_data}')
 
 
-    return render_template('display_chart.html', labels=labels, values=values, hashtag=hashtag)
+    return render_template('display_chart.html', labels=labels, values=values, hashtag=' #'.join(hashtags))
 
 
 

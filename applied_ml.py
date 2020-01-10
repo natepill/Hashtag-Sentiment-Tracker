@@ -21,7 +21,7 @@ graph = tf.get_default_graph()
 model = load_model('emotion_classification.h5')
 
 
-def start_stream(hashtag, num_seconds):
+def start_stream(hashtags, num_seconds):
     """
         Stream data through Tweepy API with given hashtag and
         return resulting CSV filename
@@ -31,18 +31,19 @@ def start_stream(hashtag, num_seconds):
     num_seconds = int(num_seconds)
 
     # Tweepy API Authentication
-    # auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
-    # auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
+    auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
+    auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
+
 
 
     #TODO set timeout to 5-10 seconds + amount of time to stream
     api = tweepy.API(auth, timeout=num_seconds+5)
 
     # Init Tweepy Stream Listener
-    twitter_stream_listener = StreamListener(hashtag, num_seconds)
+    twitter_stream_listener = StreamListener('_'.join(hashtags), num_seconds)
 
     # List of hashtags to track, currently testing with single hashtag
-    track_terms = [hashtag]
+    track_terms = hashtags
 
     # We pass in our stream_listener so that our callback functions are called
     stream = tweepy.Stream(auth=api.auth, listener=twitter_stream_listener)
