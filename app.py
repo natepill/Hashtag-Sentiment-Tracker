@@ -19,8 +19,6 @@ def landing_page():
 
 
 
-
-
 @app.route('/get_data', methods=['GET', 'POST'])
 def stream_data():
     """ Stream tweets containing user defined hashtags and store them in a CSV file """
@@ -47,9 +45,6 @@ def stream_data():
 
 
     return render_template('display_chart.html', labels=labels, values=values, hashtag=hashtag)
-
-
-
 
 
 

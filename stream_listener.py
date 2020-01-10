@@ -55,7 +55,7 @@ class StreamListener(tweepy.StreamListener):
 
         #TODO: We could preprocess the tweets here by feeding each tweet as we stream them through our ML model
         # and then we can store the sentiment score along with these other features
-        
+
         # NOTE: Seems a bit inefficient to open and close the CSV file for EACH tweet we want to add
         # NOTE: important to use APPEND mode and NOT write mode so that we dont overrite existing tweets
         with open("collected_tweets/{}".format(self.filename), 'a') as csv_file:
@@ -68,3 +68,5 @@ class StreamListener(tweepy.StreamListener):
     def on_error(self, status_code):
         if status_code == 420:
             return False
+        if status_code == 500:
+            return "asdasd"
