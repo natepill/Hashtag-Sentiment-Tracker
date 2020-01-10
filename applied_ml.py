@@ -31,12 +31,10 @@ def start_stream(hashtag):
     # auth = tweepy.OAuthHandler(os.environ["TWITTER_APP_KEY"], os.environ["TWITTER_APP_SECRET"])
     # auth.set_access_token(os.environ["TWITTER_KEY"], os.environ["TWITTER_SECRET"])
 
-    # For local usage only
-    auth = tweepy.OAuthHandler("Pkk8FlrqP1K2rAXUsTQuirpoo", "DjzupYW7EF6IgcXaAapyGksXuMjD2yktnHlnxCMLXxduwKEz9y")
-    auth.set_access_token("776088503100776448-P148kS59DfWtjmJcia0oPcmbzOAjDDB", "Owv18e04FPkfbozmqB5kULQU3CqpufG9OvtbxG0kE9NEu")
 
 
-    api = tweepy.API(auth)
+    #TODO set timeout to 5-10 seconds + amount of time to stream
+    api = tweepy.API(auth, timeout=15)
 
     # Init Tweepy Stream Listener
     twitter_stream_listener = StreamListener(hashtag)

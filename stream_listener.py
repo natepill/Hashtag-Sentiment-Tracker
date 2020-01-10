@@ -66,7 +66,8 @@ class StreamListener(tweepy.StreamListener):
     # Override the on_error method of StreamListener so that we can handle errors coming from the Twitter API properly
     # The Twitter API will send a 420 status code if we're being rate limited. If this happens --> disconnect, any other error, keep going
     def on_error(self, status_code):
+        print(f"ERROR {status_code}")
         if status_code == 420:
             return False
         if status_code == 500:
-            return "asdasd"
+            return False
