@@ -8,7 +8,7 @@ docutils==0.15.2
 tweepy==3.7.0
 inflect==2.1.0
 pytz==2018.9
-nltk==3.4
+nltk==3.4.5
 cryptography==2.4.2
 Keras==2.2.4
 numpy==1.16.2
