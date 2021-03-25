@@ -27,7 +27,7 @@ pylibmc==1.6.1
 pyOpenSSL==19.1.0
 python_memcached==1.59
 pywatchman==1.4.1
-PyYAML==5.1.2
+PyYAML==5.4
 tblib==1.5.0
 usercustomize==1.0.0
 wincertstore==0.2
