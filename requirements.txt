@@ -19,7 +19,7 @@ bpython==0.18
 cx_Oracle==7.2.3
 Cython==0.29.14
 ipaddr==2.2.0
-ipython==7.10.0
+ipython==7.16.3
 ordereddict==1.1
 Pillow==6.2.1
 protobuf==3.11.0
